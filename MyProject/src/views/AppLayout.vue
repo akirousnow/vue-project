@@ -1,22 +1,19 @@
 <script setup lang="ts">
 import AppAside from "@/views/AppAside.vue";
 import AppHeader from "@/views/AppHeader.vue";
-import { onMounted } from "vue";
+import {onMounted} from "vue";
 
-onMounted(() => {
-  console.log("AppLayout mounted!");
-});
 </script>
 
 <template>
   <div class="common-layout">
     <el-container>
-      <AppAside />
+      <AppAside/>
       <el-container class="header-and-main">
-        <AppHeader />
+        <AppHeader/>
         <el-main>
           <el-scrollbar>
-            <RouterView />
+            <RouterView/>
           </el-scrollbar>
         </el-main>
       </el-container>

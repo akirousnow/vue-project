@@ -12,20 +12,31 @@ const router = createRouter({
     {
       path: "/login",
       name: "login",
-      meta: { requiresAuth: false },
+      meta: {requiresAuth: false},
       component: () => import("@/views/login/LoginView.vue"),
     },
     {
       path: "/",
       name: "home",
       component: AppLayout,
-      meta: { requiresAuth: true },
+      meta: {requiresAuth: true},
       children: [
         {
           path: "",
           name: "index",
           component: () => import("@/views/IndexVue.vue"),
         },
+        {
+          path: "/menus",
+          name: "menus",
+          component: () => import("@/views/menu/MenuIndex.vue"),
+        },
+        {
+          path: "/menus/create",
+          name: "menus-create",
+          component: () => import("@/views/menu/CreateOrEdit.vue"),
+        },
+
         {
           path: "/:xxx(.*)*",
           name: "ErrorPage",
@@ -35,12 +46,14 @@ const router = createRouter({
     },
   ],
 });
-router.beforeEach((to, from, next) => {
+router.beforeEach((to,
+                   from,
+                   next) => {
   from = from as RouteLocationNormalized;
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     const store = useTokenStore();
-    if (!store.token.access_token) {
-      next({ path: "/login", query: { redirect: to.fullPath } });
+    if (!store.token?.access_token) {
+      next({path: "/login", query: {redirect: to.fullPath}});
       return;
     }
   }

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref } from "vue";
-import { ElMessage, FormInstance, FormRules } from "element-plus";
-import { login } from "@/api/users.ts";
+import {onMounted, reactive, ref} from "vue";
+import {ElMessage, FormInstance, FormRules} from "element-plus";
+import {login} from "@/api/users.ts";
 import useTokenStore from "@/stores/mytoken.ts";
-import { useRoute, useRouter } from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 // do not use same name with ref
 const isLoading = ref(false);
 const form = reactive({
@@ -16,7 +16,7 @@ const route = useRoute();
 const formRef = ref<FormInstance>();
 const rules = reactive<FormRules>({
   username: [
-    { required: true, message: "请输入手机号", trigger: "blur" },
+    {required: true, message: "请输入手机号", trigger: "blur"},
     {
       pattern: /^1\d{10}$/,
       message: "手机号码必须是11位数字",
@@ -24,8 +24,8 @@ const rules = reactive<FormRules>({
     },
   ],
   password: [
-    { required: true, message: "请输入密码", trigger: "blur" },
-    { min: 6, max: 10, message: "长度在 6 到 10 个字符", trigger: "blur" },
+    {required: true, message: "请输入密码", trigger: "blur"},
+    {min: 6, max: 10, message: "长度在 6 到 10 个字符", trigger: "blur"},
   ],
 });
 const onLogin = async () => {
@@ -55,7 +55,6 @@ const onLogin = async () => {
 const onLoginSuccess = (data: any) => {
   ElMessage.success("登陆成功");
   store.saveToken(data.content);
-  console.log(data);
   isLoading.value = false;
   router.push((route.query.redirect as string) || "/");
 };
@@ -73,14 +72,14 @@ const onLoginSuccess = (data: any) => {
     >
       <h1>登陆</h1>
       <el-form-item prop="phone" label="手机号">
-        <el-input v-model="form.phone" />
+        <el-input v-model="form.phone"/>
       </el-form-item>
       <el-form-item prop="password" label="密码">
-        <el-input v-model="form.password" />
+        <el-input v-model="form.password"/>
       </el-form-item>
       <el-form-item>
         <el-button :loading="isLoading" type="primary" @click="onLogin"
-          >登陆
+        >登陆
         </el-button>
       </el-form-item>
     </el-form>
